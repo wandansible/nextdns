@@ -1,0 +1,28 @@
+---
+nextdns_apt_key_fingerprint: "AD34842BF3C80F656A833F66467A7CCC8ACFA0B7"
+nextdns_apt_key_url: "https://repo.nextdns.io/nextdns.gpg"
+nextdns_apt_repo: "https://repo.nextdns.io/deb stable main"
+
+nextdns_manage_user: true
+nextdns_user: "nextdns"
+nextdns_group: "nextdns"
+
+nextdns_config: |
+  report-client-info false
+  auto-activate false
+  log-queries false
+  cache-size 0
+  max-ttl 0s
+  bogus-priv true
+  timeout 5s
+  max-inflight-requests 256
+  debug false
+  control /run/nextdns/nextdns.sock
+  hardened-privacy false
+  use-hosts true
+  cache-max-age 0s
+  mdns all
+  discovery-dns
+  detect-captive-portals false
+  setup-router false
+  listen localhost:53

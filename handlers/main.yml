@@ -1,0 +1,5 @@
+---
+- name: restart nextdns
+  ansible.builtin.service:
+    name: nextdns
+    state: restarted
