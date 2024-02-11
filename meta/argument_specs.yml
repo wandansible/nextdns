@@ -1,0 +1,61 @@
+---
+argument_specs:
+  main:
+    short_description: Install and configure NextDNS DoH proxy
+    description: |
+      Install and configure NextDNS DNS to DoH proxy which allows local DNS queries to be
+      proxied to an upstream DoH server.
+    options:
+      nextdns_apt_key_fingerprint:
+        description: Fingerprint for nextdns apt repo GPG key
+        type: str
+        default: "AD34842BF3C80F656A833F66467A7CCC8ACFA0B7"
+
+      nextdns_apt_key_url:
+        description: URL for nextdns apt repo GPG key
+        type: str
+        default: "https://repo.nextdns.io/nextdns.gpg"
+
+      nextdns_apt_repo:
+        description: Entry for nextdns apt repo in sources.list file
+        type: str
+        default: "https://repo.nextdns.io/deb stable main"
+
+      nextdns_manage_user:
+        description: If true, add nextdns unix user and group
+        type: bool
+        default: true
+
+      nextdns_user:
+        description: Name of the nextdns unix user
+        type: str
+        default: nextdns
+
+      nextdns_group:
+        description: Name of the nextdns unix group
+        type: str
+        default: nextdns
+
+      nextdns_config:
+        description: |
+          Contents of the nextdns.conf configuration file, or empty string to leave file as is
+        type: str
+        default: |
+            report-client-info false
+            auto-activate false
+            log-queries false
+            cache-size 0
+            max-ttl 0s
+            bogus-priv true
+            timeout 5s
+            max-inflight-requests 256
+            debug false
+            control /run/nextdns/nextdns.sock
+            hardened-privacy false
+            use-hosts true
+            cache-max-age 0s
+            mdns all
+            discovery-dns
+            detect-captive-portals false
+            setup-router false
+            listen localhost:53
