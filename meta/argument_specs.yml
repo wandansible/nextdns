@@ -6,20 +6,29 @@ argument_specs:
       Install and configure NextDNS DNS to DoH proxy which allows local DNS queries to be
       proxied to an upstream DoH server.
     options:
-      nextdns_apt_key_fingerprint:
-        description: Fingerprint for nextdns apt repo GPG key
+      nextdns_apt_repo_url:
+        description: Base URL for the apt repository
         type: str
-        default: "AD34842BF3C80F656A833F66467A7CCC8ACFA0B7"
+        default: "https://repo.nextdns.io/deb"
 
-      nextdns_apt_key_url:
-        description: URL for nextdns apt repo GPG key
+      nextdns_apt_repo_suite:
+        description: Suite to use for the apt repository
+        type: str
+        default: "stable"
+
+      nextdns_apt_repo_component:
+        description: Component to use for the apt repository
+        type: str
+        default: "main"
+
+      nextdns_apt_repo_gpg_key:
+        description: |
+          Either a URL to a GPG key, absolute path to a keyring file,
+          one or more fingerprints of keys either in the trusted.gpg
+          keyring or in the keyrings in the trusted.gpg.d/ directory,
+          or an ASCII armored GPG public key block
         type: str
         default: "https://repo.nextdns.io/nextdns.gpg"
-
-      nextdns_apt_repo:
-        description: Entry for nextdns apt repo in sources.list file
-        type: str
-        default: "https://repo.nextdns.io/deb stable main"
 
       nextdns_manage_user:
         description: If true, add nextdns unix user and group
@@ -41,21 +50,21 @@ argument_specs:
           Contents of the nextdns.conf configuration file, or empty string to leave file as is
         type: str
         default: |
-            report-client-info false
-            auto-activate false
-            log-queries false
-            cache-size 0
-            max-ttl 0s
-            bogus-priv true
-            timeout 5s
-            max-inflight-requests 256
-            debug false
-            control /run/nextdns/nextdns.sock
-            hardened-privacy false
-            use-hosts true
-            cache-max-age 0s
-            mdns all
-            discovery-dns
-            detect-captive-portals false
-            setup-router false
-            listen localhost:53
+          report-client-info false
+          auto-activate false
+          log-queries false
+          cache-size 0
+          max-ttl 0s
+          bogus-priv true
+          timeout 5s
+          max-inflight-requests 256
+          debug false
+          control /run/nextdns/nextdns.sock
+          hardened-privacy false
+          use-hosts true
+          cache-max-age 0s
+          mdns all
+          discovery-dns
+          detect-captive-portals false
+          setup-router false
+          listen localhost:53

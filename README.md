@@ -15,16 +15,24 @@ ENTRY POINT: *main* - Install and configure NextDNS DoH proxy
 
 Options (= indicates it is required):
 
-- nextdns_apt_key_fingerprint  Fingerprint for nextdns apt repo GPG key
-          default: AD34842BF3C80F656A833F66467A7CCC8ACFA0B7
+- nextdns_apt_repo_component  Component to use for the apt repository
+          default: main
           type: str
 
-- nextdns_apt_key_url  URL for nextdns apt repo GPG key
+- nextdns_apt_repo_gpg_key  Either a URL to a GPG key, absolute path to a keyring file, one or
+                             more fingerprints of keys either in the
+                             trusted.gpg keyring or in the keyrings in
+                             the trusted.gpg.d/ directory, or an ASCII
+                             armored GPG public key block
           default: https://repo.nextdns.io/nextdns.gpg
           type: str
 
-- nextdns_apt_repo  Entry for nextdns apt repo in sources.list file
-          default: https://repo.nextdns.io/deb stable main
+- nextdns_apt_repo_suite  Suite to use for the apt repository
+          default: stable
+          type: str
+
+- nextdns_apt_repo_url  Base URL for the apt repository
+          default: https://repo.nextdns.io/deb
           type: str
 
 - nextdns_config  Contents of the nextdns.conf configuration file, or empty string to
