@@ -1,7 +1,8 @@
 ---
-nextdns_apt_key_fingerprint: "AD34842BF3C80F656A833F66467A7CCC8ACFA0B7"
-nextdns_apt_key_url: "https://repo.nextdns.io/nextdns.gpg"
-nextdns_apt_repo: "https://repo.nextdns.io/deb stable main"
+nextdns_apt_repo_url: "https://repo.nextdns.io/deb"
+nextdns_apt_repo_suite: "stable"
+nextdns_apt_repo_component: "main"
+nextdns_apt_repo_gpg_key: "https://repo.nextdns.io/nextdns.gpg"
 
 nextdns_manage_user: true
 nextdns_user: "nextdns"

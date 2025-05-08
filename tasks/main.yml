@@ -1,27 +1,25 @@
 ---
-- name: Create apt keyrings directory
+- name: Install dependencies
+  ansible.builtin.apt:
+    pkg:
+      - "python3-debian"
+
+- name: Remove old nextdns apt configuration
   ansible.builtin.file:
-    path: /etc/apt/keyrings
-    state: directory
-    owner: root
-    group: root
-    mode: u=rwx,g=rx,o=rx
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "/etc/apt/sources.list.d/nextdns.list"
 
-- name: Add apt signing key
-  ansible.builtin.apt_key:
-    id: "{{ nextdns_apt_key_fingerprint }}"
-    url: "{{ nextdns_apt_key_url }}"
-    keyring: /etc/apt/keyrings/nextdns.gpg
+- name: Add nextdns apt repository
+  ansible.builtin.deb822_repository:
+    name: nextdns
+    uris: "{{ nextdns_apt_repo_url }}"
+    suites: "{{ nextdns_apt_repo_suite }}"
+    components: "{{ nextdns_apt_repo_component }}"
+    signed_by: "{{ nextdns_apt_repo_gpg_key }}"
     state: present
-
-- name: Add apt repository
-  ansible.builtin.apt_repository:
-    repo: >-
-      deb [signed-by=/etc/apt/keyrings/nextdns.gpg]
-      {{ nextdns_apt_repo }}
-    filename: nextdns
-    update_cache: true
-    state: present
+  register: _apt_repo
 
 - name: "Add system group"
   ansible.builtin.group:
@@ -44,6 +42,7 @@
   ansible.builtin.apt:
     pkg: "nextdns"
     install_recommends: false
+    update_cache: "{{ true if _apt_repo is changed else false }}"
     state: present
 
 - name: Configure /etc/nextdns.conf
