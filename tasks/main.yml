@@ -26,7 +26,7 @@
     name: "{{ nextdns_group }}"
     system: true
     state: present
-  when: nextdns_manage_user
+  when: nextdns_manage_user | bool
 
 - name: "Add system user"
   ansible.builtin.user:
@@ -36,7 +36,7 @@
     shell: /usr/sbin/nologin
     createhome: false
     state: present
-  when: nextdns_manage_user
+  when: nextdns_manage_user | bool
 
 - name: Install nextdns
   ansible.builtin.apt:
